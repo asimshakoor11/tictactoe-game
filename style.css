@@ -1,0 +1,238 @@
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    background-color: rgb(156, 63, 199);
+    color: white;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+}
+
+nav ul{
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+.gamecontainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.container{
+    display: grid;
+    grid-template-rows: repeat(3,10vw);
+    grid-template-columns: repeat(3,10vw);
+    position: relative;
+}
+
+.box{
+    border: 2px solid black;
+    font-size: 8vw;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.box:hover{
+    background-color: rgb(225, 212, 240);
+}
+
+.info{
+    font-size: 22px;
+    color: rgb(255, 102, 0);
+}
+
+.gameinfo{
+    padding: 0 34px;
+}
+
+.gameinfo h1{
+    font-size: 2.5rem;
+}
+
+.br-0{
+    border-right: 0;
+}
+
+.bl-0{
+    border-left: 0;
+}
+
+.bt-0{
+    border-top: 0;
+}
+
+.bb-0{
+    border-bottom: 0;
+}
+
+.reset{
+    margin: 0 23px;
+    padding: 3px 18px;
+    padding-bottom: 5px;
+    background-color: #f3e7f9;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 15px;
+    font-weight: bolder;
+    border: 1px solid #854985;
+}
+
+.line{
+     background-color: #911d91;
+     height: 3px;
+     width: 0;
+     position: absolute;
+     transition: width 0.5s ease-in-out;
+}
+
+.scores{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.stats{
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+.stats p{
+    font-size: 22px;
+}
+
+.para1{
+    color: rgb(255, 102, 0);
+}
+
+.para2{
+    color: blue;
+}
+
+.orange{
+    color: rgb(255, 102, 0);
+}
+
+.blue{
+    color: blue;
+}
+
+.borange{
+    background-color: rgb(255, 102, 0);
+}
+
+.bblue{
+    background-color: blue;
+}
+
+.mr-0{
+    margin-right: 0;
+}
+
+.black{
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.congrats{
+    position: fixed;
+    top: 50vh;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(156, 63, 199,0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.congrats .greets p{
+    font-size: 22px;
+    font-weight: bolder;
+    text-decoration: underline;
+    color: white;
+    padding-bottom: 5px;
+}
+
+.hide{
+    display: none;
+}
+
+@media screen and (max-width: 1000px)
+{
+    .line{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 950px)
+{
+    .gamecontainer{
+        flex-wrap: wrap;
+        margin-top: 40px;
+    }
+
+    .gameinfo{
+        margin-top: 34px;
+    }
+
+    .gameinfo h1{
+        font-size: 1.5rem;
+    }
+
+    .container{
+        grid-template-rows: repeat(3,20vw);
+        grid-template-columns: repeat(3,20vw);
+    }
+
+    .congrats .greets p{
+        font-size: 18px;
+    }
+
+    .stats{
+        margin-left: 0px;
+    }
+
+}
+
+
+@media screen and (max-width: 460px)
+{
+    .scores{
+        flex-direction: column;
+    }
+
+    .btnss{
+        margin-top: 20px;
+    }
+
+    .info{
+        font-size: 20px;
+    }
+
+    .stats p{
+        font-size: 20px;
+    }
+}
