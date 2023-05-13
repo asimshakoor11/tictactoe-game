@@ -1,9 +1,12 @@
-
 let turn = "X";
 let gameover = false;
 let playerX = 0;
 let player0 = 0;
 let draw = 0;
+let win = false;
+const clicksound = new Audio("music/click.wav");
+const clicksound1 = new Audio("music/click.wav");
+
 
 //change turn
 const changeTurn = () => {
@@ -18,33 +21,58 @@ Array.from(boxes).forEach((element) => {
   element.addEventListener("click", () => {
     if (boxtext.innerText === "") {
       boxtext.innerText = turn;
-      if (turn === "X"){
+      if (turn === "X") {
+        clicksound.play();
         boxtext.classList.remove("blue");
         boxtext.classList.add("orange");
       }
-      
-      if (turn === "0"){
+
+      if (turn === "0") {
+        clicksound1.play();
         boxtext.classList.remove("orange");
         boxtext.classList.add("blue");
       }
+
       turn = changeTurn();
       checkwin();
       if (!gameover) {
-        document.getElementsByClassName("info")[0].innerText = "Turn for Player: " + turn;
+        document.getElementsByClassName("info")[0].innerText =
+          "Turn for Player: " + turn;
       }
-      if (turn === "X") {
-        document.getElementsByClassName("info")[0].classList.remove("blue");
-        document.getElementsByClassName("info")[0].classList.remove("black");
-        document.getElementsByClassName("info")[0].classList.add("orange");
-      }
-      if (turn === "0") {
-        document.getElementsByClassName("info")[0].classList.remove("orange");
-        document.getElementsByClassName("info")[0].classList.remove("black");
-        document.getElementsByClassName("info")[0].classList.add("blue");
-      }
+      colorChanger();
+      
     }
   });
 });
+
+// changing colors
+function colorChanger(){
+  if (turn === "X") {
+    if (win === true) {
+      document.getElementsByClassName("info")[0].classList.remove("blue");
+      document.getElementsByClassName("info")[0].classList.remove("orange");
+      document.getElementsByClassName("info")[0].classList.add("black");
+      win = false;
+    } else {
+      document.getElementsByClassName("info")[0].classList.remove("blue");
+      document.getElementsByClassName("info")[0].classList.remove("black");
+      document.getElementsByClassName("info")[0].classList.add("orange");
+    }
+  }
+  if (turn === "0") {
+    if (win == true) {
+      document.getElementsByClassName("info")[0].classList.remove("blue");
+      document.getElementsByClassName("info")[0].classList.remove("orange");
+      document.getElementsByClassName("info")[0].classList.add("black");
+      win = false;
+    } else {
+      document.getElementsByClassName("info")[0].classList.remove("orange");
+      document.getElementsByClassName("info")[0].classList.remove("black");
+      document.getElementsByClassName("info")[0].classList.add("blue");
+    }
+  }
+
+}
 
 // check win
 const checkwin = () => {
@@ -68,25 +96,29 @@ const checkwin = () => {
       boxtext[e[2]].innerText === boxtext[e[1]].innerText &&
       boxtext[e[0]].innerText !== ""
     ) {
-      document.querySelector(".info").innerText = "Player " + boxtext[e[0]].innerText + " Won";
-      document.querySelector(".wonsp").innerText = "Congratulations! Player " + boxtext[e[0]].innerText + " Won";      
-      document.querySelector(".info").classList.add("black");
+      win = true;
+      document.querySelector(".info").innerText =
+        "Player " + boxtext[e[0]].innerText + " Won";
+      document.querySelector(".wonsp").innerText =
+        "Congratulations! Player " + boxtext[e[0]].innerText + " Won";
       document.getElementsByClassName("congrats")[0].classList.remove("hide");
-      gameover = true;     
+      gameover = true;
 
-      if(boxtext[e[0]].innerText === "X"){
+      if (boxtext[e[0]].innerText === "X") {
         document.querySelector(".para1").innerText = "X: " + ++playerX;
         document.querySelector(".line").classList.remove("bblue");
         document.querySelector(".line").classList.add("borange");
       }
 
-      if(boxtext[e[0]].innerText === "0"){
+      if (boxtext[e[0]].innerText === "0") {
         document.querySelector(".para2").innerText = "0 : " + ++player0;
         document.querySelector(".line").classList.remove("borange");
         document.querySelector(".line").classList.add("bblue");
       }
 
-      document.querySelector( ".line").style.transform = `translate(${e[3]}vw, ${e[4]}vw) rotate(${e[5]}deg)`;
+      document.querySelector(
+        ".line"
+      ).style.transform = `translate(${e[3]}vw, ${e[4]}vw) rotate(${e[5]}deg)`;
       document.querySelector(".line").style.width = "26vw";
       checker = false;
     }
@@ -102,7 +134,7 @@ const checkwin = () => {
     boxtext[5].innerText !== "" &&
     boxtext[6].innerText !== "" &&
     boxtext[7].innerText !== "" &&
-    boxtext[8].innerText !== "" && 
+    boxtext[8].innerText !== "" &&
     checker == true
   ) {
     document.querySelector(".info").innerText = "Match Draw!!!!";
@@ -111,7 +143,6 @@ const checkwin = () => {
     document.getElementsByClassName("congrats")[0].classList.remove("hide");
     gameover = true;
     document.querySelector(".para3").innerText = "Draw : " + ++draw;
-
   }
 };
 
@@ -124,16 +155,18 @@ function resetall() {
   turn = "X";
   gameover = false;
   document.querySelector(".line").style.width = "0vw";
-  document.getElementsByClassName("info")[0].innerText = "Turn for Player: " + turn;
+  document.getElementsByClassName("info")[0].innerText =
+    "Turn for Player: " + turn;
+  colorChanger();
   document.querySelector(".para1").innerText = "X: 0";
   document.querySelector(".para2").innerText = "0 : 0";
-  document.querySelector(".para3").innerText = "Draw : 0" ;
+  document.querySelector(".para3").innerText = "Draw : 0";
   player0 = 0;
   playerX = 0;
   draw = 0;
 }
 
-function reset(){
+function reset() {
   let boxtext = document.querySelectorAll(".boxtext");
   Array.from(boxtext).forEach((element) => {
     element.innerText = "";
@@ -141,10 +174,16 @@ function reset(){
   turn = "X";
   gameover = false;
   document.querySelector(".line").style.width = "0vw";
-  document.getElementsByClassName("info")[0].innerText = "Turn for Player: " + turn;
+  document.getElementsByClassName("info")[0].innerText =
+    "Turn for Player: " + turn;
+  colorChanger();
+    
 }
 
 function closeit() {
   document.getElementsByClassName("congrats")[0].classList.add("hide");
+  // document.getElementsByClassName("info")[0].classList.remove("blue");
+  // document.getElementsByClassName("info")[0].classList.remove("orange");
+  document.getElementsByClassName("info")[0].classList.remove("black");
   reset();
 }
